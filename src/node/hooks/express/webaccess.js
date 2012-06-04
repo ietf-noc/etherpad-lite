@@ -32,7 +32,15 @@ exports.basicAuth = function (req, res, next) {
 
   var authenticate = function (cb) {
     // If auth headers are present use them to authenticate...
-    if (req.headers.authorization && req.headers.authorization.search('Basic ') === 0) {
+    if (settings.auth_remote && req.headers['x-forwarded-user'] != undefined) {
+      var username = req.headers['x-forwarded-user'];
+      if (settings.users[username] == undefined) settings.users[username] = {};
+      //if (settings.users[username] != undefined) {  // Only allow defined users over auth_remote? Probably not.
+      settings.users[username].username = username;
+      req.session.user = settings.users[username];
+      return cb(true);
+      //}
+    } else if (req.headers.authorization && req.headers.authorization.search('Basic ') === 0) {
       var userpass = new Buffer(req.headers.authorization.split(' ')[1], 'base64').toString().split(":")
       var username = userpass.shift();
       var password = userpass.join(':');

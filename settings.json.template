@@ -150,6 +150,10 @@
   },
   */
 
+  /* Authenticate based on X-Remote-User header (for etherpad behind
+     webserver).  */
+  "auth_remote": false,
+
   /* The log level we are using, can be: DEBUG, INFO, WARN, ERROR */
   "loglevel": "INFO",
 

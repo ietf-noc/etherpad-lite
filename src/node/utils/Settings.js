@@ -198,6 +198,7 @@ exports.trustProxy = false;
 exports.requireAuthentication = false;
 exports.requireAuthorization = false;
 exports.users = {};
+exports.auth_remote = false;
 
 //checks if abiword is avaiable
 exports.abiwordAvailable = function()
